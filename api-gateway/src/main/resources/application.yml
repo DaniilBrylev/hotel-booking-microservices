@@ -6,6 +6,9 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      actuator:
+        verbose:
+          enabled: true
       discovery:
         locator:
           enabled: false
@@ -43,6 +46,7 @@ eureka:
 management:
   endpoints:
     web:
+      base-path: /actuator
       exposure:
         include: health,info,gateway
   endpoint:
