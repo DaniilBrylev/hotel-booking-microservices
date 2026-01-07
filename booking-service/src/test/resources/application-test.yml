@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:bookingdb-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+security:
+  jwt:
+    secret: "test-secret-key-1234567890-test-secret"
+    ttl: 1h
+
+booking:
+  hotel:
+    base-url: http://localhost:9999
+    internal-token: "test-internal-token"
+    timeout: 1s
+    retry:
+      max-attempts: 3
+      backoff: 50ms
+
+eureka:
+  client:
+    enabled: false

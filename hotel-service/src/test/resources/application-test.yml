@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:hoteldb-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+security:
+  jwt:
+    secret: d2ad3944549849ca8c13cb6771c27855
+
+internal:
+  token: "test-internal-token"
+
+eureka:
+  client:
+    enabled: false

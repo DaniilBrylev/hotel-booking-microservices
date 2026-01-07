@@ -1,0 +1,50 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: booking-service
+          uri: lb://BOOKING-SERVICE
+          predicates:
+            - Path=/api/bookings/**
+          filters:
+            - RewritePath=/api/bookings/(?<segment>.*),/${segment}
+        - id: hotel-service-hotels
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotels,/api/hotels/
+          filters:
+            - SetPath=/api/hotels
+        - id: hotel-service-rooms
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotels/rooms,/api/hotels/rooms/
+          filters:
+            - SetPath=/api/rooms
+        - id: hotel-service-rooms-recommend
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotels/rooms/recommend,/api/hotels/rooms/recommend/
+          filters:
+            - SetPath=/api/rooms/recommend
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      enabled: true
